@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import mne
 from io import BytesIO
 from autoreject import get_rejection_threshold
@@ -31,8 +32,9 @@ frequencies_configuration = {
 def get_clean_data(metric, data):
 
     config = frequencies_configuration[metric]
-    data = pd.read_csv(data)
-
+    data = np.loadtxt(data, delimiter=',', usecols=(range(0,12)))
+    print("hola1")
+    print(data)
 
     ch_names = ['AF7', 'Fp1', 'Fp2', 'AF8', 'F3', 'F4', 'P3', 'P4', 'PO7',
                 'O1', 'O2', 'PO8']
