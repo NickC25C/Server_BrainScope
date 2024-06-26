@@ -18,18 +18,18 @@ from sklearn.metrics import r2_score
 import matplotlib.pyplot as plt
 from sklearn.impute import SimpleImputer
 
-def process_data_workload():
-    data = pd.read_csv('ProcessData.csv')
-    data = data.dropna()
+#def process_data_workload():
+data = pd.read_csv('ProcessData.csv')
+data = data.dropna()
 
-    #clf = joblib.load("Workload_DTree_model_150.joblib")
-    clf = joblib.load("Workload_LSVR_model.joblib")
+#clf = joblib.load("Workload_DTree_model_150.joblib")
+clf = joblib.load("Workload_LSVR_model.joblib")
 
-    predicciones = clf.predict(data)
+predicciones = clf.predict(data)
 
-    # Crear un DataFrame de pandas con las predicciones
-    df_predicciones = pd.DataFrame(predicciones, columns=['Predicción'])
+# Crear un DataFrame de pandas con las predicciones
+df_predicciones = pd.DataFrame(predicciones, columns=['Predicción'])
 
-    # Guardar el DataFrame en un archivo CSV
-    df_predicciones.to_csv('predicciones_LSVR.csv', index=False)
+# Guardar el DataFrame en un archivo CSV
+df_predicciones.to_csv('predicciones_LSVR.csv', index=False)
 

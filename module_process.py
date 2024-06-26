@@ -1,0 +1,7 @@
+from Engagement.engagement import process_data_engagement
+from Memorization.memorization import process_data_memorization
+from Workload.workload import process_data_workload
+
+process_data_workload()
+process_data_engagement()
+process_data_memorization()
