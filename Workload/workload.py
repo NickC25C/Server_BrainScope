@@ -1,23 +1,5 @@
 import pandas as pd
-from joblib import dump, load
-from sklearn.svm import LinearSVR
-from sklearn.neural_network import MLPRegressor
-from sklearn.tree import DecisionTreeRegressor
-import numpy as np
 import joblib
-import pandas as pd
-import matplotlib.pyplot as plt
-import json
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_absolute_error
-from sklearn.metrics import mean_squared_error
-from sklearn.metrics import mean_absolute_percentage_error
-from sklearn.metrics import max_error
-from sklearn.metrics import median_absolute_error
-from sklearn.metrics import r2_score
-import matplotlib.pyplot as plt
-from sklearn.impute import SimpleImputer
-
 #def process_data_workload():
 data = pd.read_csv('ProcessData.csv')
 data = data.dropna()
@@ -30,6 +12,20 @@ predicciones = clf.predict(data)
 # Crear un DataFrame de pandas con las predicciones
 df_predicciones = pd.DataFrame(predicciones, columns=['Predicción'])
 
+replicas = 8
+
+# Crear una lista para almacenar las filas replicadas
+replicated_rows = []
+
+# Iterar sobre cada fila del DataFrame original
+for _, row in df_predicciones.iterrows():
+    # Añadir la fila replicada 8 veces a la lista
+    for _ in range(replicas):
+        replicated_rows.append(row)
+
+# Convertir la lista de filas replicadas en un DataFrame
+df_repetido = pd.DataFrame(replicated_rows, columns=df_predicciones.columns)
+
 # Guardar el DataFrame en un archivo CSV
-df_predicciones.to_csv('predicciones_LSVR.csv', index=False)
+df_repetido.to_csv('predicciones_LSVR_prueba.csv', index=False)
 
