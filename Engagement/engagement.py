@@ -27,7 +27,4 @@ def process_engagement(data):
     # Convertir la lista de filas replicadas en un DataFrame
     df_repetido = pd.DataFrame(replicated_rows, columns=df_predicciones.columns)
 
-    # Guardar el DataFrame en un archivo CSV
-    df_repetido.to_csv('Engagement/predicciones_LSVR_prueba.csv', index=False)
-
     return df_repetido

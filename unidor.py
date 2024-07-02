@@ -10,4 +10,4 @@ def columns_to_csv(time, engagement, memorization, workload):
     # Crear un DataFrame con las columnas
     df_final = pd.concat([time, engagement, memorization, workload], axis=1)
 
-    df_final.to_csv('archivo_unido.csv', index=False)
+    return df_final
