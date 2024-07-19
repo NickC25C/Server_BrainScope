@@ -73,7 +73,7 @@ def get_clean_data(metric, data):
 
     info = create_info(ch_names, 1, "eeg")
     processed_data = ica.apply(raw_ica.copy())
-
+    print(processed_data)
     #---------------------------->aqui para los datos en crudo
 
     print("hola2")

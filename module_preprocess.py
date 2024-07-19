@@ -41,4 +41,7 @@ def pre_process():
     return columns_to_csv(column_time, data_process[0], data_process[1], data_process[2])
 
 
+pre_process()
+
+
 
