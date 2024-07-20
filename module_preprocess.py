@@ -20,9 +20,9 @@ def pre_process(dataFrame):
         return max_iter
 
 
-    data_preProcess.append(get_clean_data("Engagement", dataFrame.copy()))
-    data_preProcess.append(get_clean_data("Memorization", dataFrame.copy()))
-    data_preProcess.append(get_clean_data("Workload", dataFrame.copy()))
+    data_preProcess.append(get_clean_data("Engagement", dataFrame))
+    data_preProcess.append(get_clean_data("Memorization", dataFrame))
+    data_preProcess.append(get_clean_data("Workload", dataFrame))
 
     data_process.append(process_engagement(data_preProcess[0]))
     data_process.append(process_memorization(data_preProcess[1]))

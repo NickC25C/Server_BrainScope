@@ -2,6 +2,7 @@ from flask import Flask, Response, request, jsonify
 import pandas as pd
 from module_preprocess import pre_process
 import socket
+from io import StringIO
 
 import socket
 
@@ -26,7 +27,9 @@ def process_data():
             return Response("No JSON data provided", status=400, mimetype='text/plain')
         
         # Convertir los datos JSON a DataFrame
-        df = pd.DataFrame(json_data)
+        string_data = StringIO(json_data)
+
+        df = pd.read_csv(string_data, header=None)
         
         # Llamar a pre_process pasando el DataFrame
         processed_df = pre_process(df)
