@@ -1,5 +1,7 @@
-from flask import Flask, Response
+from flask import Flask, Response, request, jsonify
+import pandas as pd
 from module_preprocess import pre_process
+import socket
 
 import socket
 
@@ -17,8 +19,19 @@ app = Flask(__name__)
 @app.route('/process_data', methods=['POST'])
 def process_data():
     try:
-        df = pre_process()  # Suponemos que esta función devuelve un DataFrame
-        json_result = df.to_json(orient='records')  # Convertir el DataFrame a JSON
+        print("estamos aqui")
+            # Asumir que los datos se envían como JSON en el cuerpo de la solicitud
+        json_data = request.get_json()
+        if not json_data:
+            return Response("No JSON data provided", status=400, mimetype='text/plain')
+        
+        # Convertir los datos JSON a DataFrame
+        df = pd.DataFrame(json_data)
+        
+        # Llamar a pre_process pasando el DataFrame
+        processed_df = pre_process(df)
+
+        json_result = processed_df.to_json(orient='records')  # Convertir el DataFrame a JSON
         return Response(json_result, mimetype='application/json')  # Devolver el JSON como una respuesta HTTP
     except Exception as e:
         return Response(f"An error occurred: {str(e)}", status=500, mimetype='text/plain')

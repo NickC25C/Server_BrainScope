@@ -32,8 +32,6 @@ frequencies_configuration = {
 def get_clean_data(metric, data):
 
     config = frequencies_configuration[metric]
-    data = np.loadtxt(data, delimiter=',', usecols=(range(0,12)))
-    print("hola1")
     print(data)
 
     ch_names = ['AF7', 'Fp1', 'Fp2', 'AF8', 'F3', 'F4', 'P3', 'P4', 'PO7',
@@ -46,7 +44,9 @@ def get_clean_data(metric, data):
 
     #transpone los datos (columnas por filas)
 
-    raw = mne.io.RawArray(data.transpose(), info)
+    data = data.iloc[:, :12].to_numpy().T
+
+    raw = mne.io.RawArray(data, info)
     #raw.compute_psd().plot()
 
     ica_low_cut = 1.0       
@@ -98,7 +98,6 @@ def get_clean_data(metric, data):
     df.reset_index(drop=True, inplace=True)
     
     transformed_data = group_by_metric(df)
-    transformed_data.to_csv(f'./{metric}/ProcessData.csv', index=False)
     return transformed_data
 
     # Filtramos los datos por bandas de frecuencia especificadas.

@@ -6,7 +6,7 @@ from generate_time import generate_time_column
 from unidor import columns_to_csv
 from io import BytesIO
 
-def pre_process():
+def pre_process(dataFrame):
 
     data_preProcess = []
     data_process = []
@@ -20,16 +20,9 @@ def pre_process():
         return max_iter
 
 
-    # Cargar el archivo 27.csv en un objeto BytesIO
-    with open("didi_eeg.csv", "rb") as file:
-        contenido = file.read()
-        archivo_objeto = BytesIO(contenido)
-        archivo_objeto2 = BytesIO(contenido)
-        archivo_objeto3 = BytesIO(contenido)
-
-    data_preProcess.append(get_clean_data("Engagement", archivo_objeto3))
-    data_preProcess.append(get_clean_data("Memorization", archivo_objeto2))
-    data_preProcess.append(get_clean_data("Workload", archivo_objeto))
+    data_preProcess.append(get_clean_data("Engagement", dataFrame.copy()))
+    data_preProcess.append(get_clean_data("Memorization", dataFrame.copy()))
+    data_preProcess.append(get_clean_data("Workload", dataFrame.copy()))
 
     data_process.append(process_engagement(data_preProcess[0]))
     data_process.append(process_memorization(data_preProcess[1]))
