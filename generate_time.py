@@ -11,8 +11,13 @@ def generate_time_column(length):
 
     # Generar marcas de tiempo
     for i in range(num_timestamps):
-        time_increment = start_time + timedelta(milliseconds=4 * i)
-        timestamps.append(time_increment.strftime('%H:%M:%S.%f')[:-3])
+        # Incrementar el tiempo en microsegundos
+        time_increment = start_time + timedelta(microseconds=4000 * i)
+        # Calcular los segundos totales (incluyendo minutos como segundos)
+        total_seconds = (time_increment.hour * 3600 + time_increment.minute * 60 + time_increment.second)
+        # Formatear el tiempo como segundos y microsegundos
+        formatted_time = f"{total_seconds}.{time_increment.microsecond:06d}"
+        timestamps.append(formatted_time)
 
     # Crear un DataFrame de pandas
     df = pd.DataFrame(timestamps, columns=['time(s)'])
